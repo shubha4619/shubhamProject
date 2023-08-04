@@ -28,7 +28,6 @@ class MeetController extends Controller
 
     public function handleGoogleCallback(Request $request)
     {
-        // dd('asdasd');
         $client = new GoogleClient();
         $client->setClientId(config('services.google.client_id'));
         $client->setClientSecret(config('services.google.client_secret'));
