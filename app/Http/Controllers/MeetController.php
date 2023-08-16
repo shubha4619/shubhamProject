@@ -17,8 +17,8 @@ class MeetController extends Controller
     {
 
         $client = new GoogleClient();
-        $client->setClientId(config('services.google.client_id'));
-        $client->setClientSecret(config('services.google.client_secret'));
+        $client->setClientId(config('services.google.client_id')); //GOOGLE_CLIENT_ID = 1034891502667-912jfmkiuj0lt5pltedjbdc6ecgip764.apps.googleusercontent.com
+        $client->setClientSecret(config('services.google.client_secret')); //GOOGLE_CLIENT_SECRET = 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
         $client->setRedirectUri(config('services.google.redirect'));
         $client->addScope(GoogleCalender::CALENDAR_EVENTS);
         
@@ -67,41 +67,6 @@ class MeetController extends Controller
         $event = $service->events->insert($calendarId, $event, array('conferenceDataVersion' => 1));
 
         return ($event['hangoutLink']) ;
-
-    }
-
-    public function sendError($error, $errorMessages = [], $code = 200)
-    {
-    	$response = [
-            'status' => false,
-            'message' => $error,
-        ];
-
-
-        if(!empty($errorMessages)){
-            $response['data'] = $errorMessages; 
-        }
-
-
-        return response()->json($response, $code);
-    }
-
-    public function store(Request $request){
-          
-
-        $validator = Validator::make($request->all(), [
-            'title' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors()->first() );
-        }
-
-        $data  = new StoreMeetLink();
-        $data->title = $request->get('title');
-        if($data->save()){
-          return  $this->redirectToGoogle();
-        }
-
 
     }
 }
