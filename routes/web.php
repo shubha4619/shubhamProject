@@ -44,12 +44,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     ->scopes(['https://www.googleapis.com/auth/calendar.events'])
 //     ->redirect();
 // });
-Route::get('/checkResponse',[MeetController::class,'checkLof']);
-// Route::get('/checkResponse', function () {
-//     return Socialite::driver('google')
-//     ->scopes(['https://www.googleapis.com/auth/calendar.events'])
-//     ->redirect();
-// });
+Route::get('/checkResponse', function () {
+    return Socialite::driver('google')
+    ->scopes(['https://www.googleapis.com/auth/calendar.events'])
+    ->redirect();
+});
 
 Route::get('/google/meet', [MeetController::class,'handleGoogleCallback'])->name('google.meet');
 

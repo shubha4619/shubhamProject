@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Laravel\Socialite\Facades\Socialite;
 use Google_Client;
-use Google_Service_Calendar ;
-use Google_Service_Calendar_Event ;
-
+use Google_Service_Calendar;
+use Google_Service_Calendar_Event;
+use Laravel\Socialite\Facades\Socialite;
 
 class MeetController extends Controller
 {
@@ -24,13 +23,14 @@ class MeetController extends Controller
 
         $event = new Google_Service_Calendar_Event(array(
             'summary' => 'Meeting Title',
+
             'start' => array(
-                'dateTime' => '2023-08-15T10:00:00',
-                'timeZone' => 'America/New_York',
+                'dateTime' => Carbon::now()->format('c'),
+                'timeZone' => 'Asia/Kolkata',
             ),
             'end' => array(
-                'dateTime' => '2023-08-15T11:00:00',
-                'timeZone' => 'America/New_York',
+                'dateTime' => Carbon::now()->addMinutes(15)->format('c'),
+                'timeZone' => 'Asia/Kolkata',
             ),
             'conferenceData' => array(
                 'createRequest' => array(
