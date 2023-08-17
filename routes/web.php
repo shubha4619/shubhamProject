@@ -7,6 +7,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\GoogleMeetController;
 use App\Http\Controllers\MeetController;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,19 @@ Route::post('/admin/register',[RegisterController::class,'createAdmin'])->name('
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/checkResponse', [MeetController::class,'redirectToGoogle'])->name('google.login');
+// Route::get('/checkResponse', [MeetController::class,'redirectToGoogle'])->name('google.login');
+
+// Route::get('/checkResponse', function () {
+//     return Socialite::driver('google')
+//     ->scopes(['https://www.googleapis.com/auth/calendar.events'])
+//     ->redirect();
+// });
+Route::get('/checkResponse',[MeetController::class,'checkLof']);
+// Route::get('/checkResponse', function () {
+//     return Socialite::driver('google')
+//     ->scopes(['https://www.googleapis.com/auth/calendar.events'])
+//     ->redirect();
+// });
 
 Route::get('/google/meet', [MeetController::class,'handleGoogleCallback'])->name('google.meet');
 
